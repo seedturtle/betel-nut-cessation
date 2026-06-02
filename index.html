@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>戒檳榔吧 — 遠離口腔癌的威脅</title>
+  <style>
+    /* ========== Reset & base ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: #1a1a2e; line-height: 1.7; background: #f8f9fa;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(11,94,66,0.03) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 90% 40%, rgba(78,205,196,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 80%, rgba(11,94,66,0.02) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    /* Subtle leaf pattern overlay for sections */
+    .section {
+      padding: 80px 0;
+      position: relative;
+    }
+    .section:nth-child(even)::before {
+      content: '🍃'; position: absolute; font-size: 4rem; opacity: 0.06;
+      top: 20px; right: 30px; transform: rotate(15deg);
+      pointer-events: none;
+    }
+    .section:nth-child(odd)::after {
+      content: '🌿'; position: absolute; font-size: 3.5rem; opacity: 0.05;
+      bottom: 20px; left: 20px; transform: rotate(-10deg);
+      pointer-events: none;
+    }
+
+    /* ========== Utility ========== */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 80px 0; position: relative; }
+    .text-center { text-align: center; }
+    .mb-2 { margin-bottom: 20px; }
+    .mb-4 { margin-bottom: 40px; }
+    .fade-in { animation: fadeIn 0.6s ease both; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ========== Hero ========== */
+    .hero {
+      background: linear-gradient(135deg, #b33939 0%, #cd6133 50%, #e66767 100%);
+      color: #fff; padding: 100px 0 80px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);
+    }
+    /* Floating decorative leaves */
+    .hero .decoration {
+      position: absolute; font-size: 7rem; opacity: 0.25; pointer-events: none;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(15deg); }
+    }
+    .hero .decoration:nth-child(1) { top: 5%; left: 3%; animation-delay: 0s; }
+    .hero .decoration:nth-child(2) { top: 15%; right: 8%; animation-delay: 1s; }
+    .hero .decoration:nth-child(3) { top: 50%; left: 2%; animation-delay: 2s; }
+    .hero .decoration:nth-child(4) { bottom: 10%; right: 3%; animation-delay: 3s; }
+    .hero .decoration:nth-child(5) { top: 60%; right: 15%; animation-delay: 0.5s; font-size: 5rem; }
+    .hero .decoration:nth-child(6) { bottom: 30%; left: 10%; animation-delay: 1.5s; font-size: 5rem; }
+    .hero .decoration:nth-child(7) { top: 30%; left: 20%; animation-delay: 2.5s; font-size: 4rem; }
+    .hero .decoration:nth-child(8) { bottom: 5%; left: 30%; animation-delay: 3.5s; font-size: 4rem; }
+    .hero h1 {
+      font-size: clamp(4rem, 10vw, 6.4rem); font-weight: 800;
+      position: relative; letter-spacing: 0.02em;
+    }
+    .hero h1 span { display: block; font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 400; margin-top: 16px; opacity: 0.9; }
+    .hero .subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem); margin-top: 24px; opacity: 0.85;
+      position: relative;
+    }
+    .hero-stats {
+      display: flex; gap: 40px; justify-content: center; margin-top: 48px;
+      flex-wrap: wrap; position: relative;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-size: 2rem; font-weight: 800; }
+    .hero-stat .label { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
+
+    /* ========== Section headings ========== */
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 16px;
+      color: #b33939;
+    }
+    .section-desc { font-size: 1rem; color: #555; max-width: 640px; margin: 0 auto 48px; }
+
+    /* ========== Timeline ========== */
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+      width: 3px; background: linear-gradient(to bottom, #b33939, #e66767);
+      border-radius: 3px;
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 32px; padding: 20px 24px;
+      background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s; cursor: default;
+    }
+    .timeline-item:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .timeline-item .dot {
+      position: absolute; left: -33px; top: 24px; width: 20px; height: 20px;
+      border-radius: 50%; background: #0b5e42; border: 3px solid #fff;
+      box-shadow: 0 0 0 3px #b33939;
+    }
+    .timeline-item .time { font-size: 0.85rem; font-weight: 700; color: #b33939; margin-bottom: 4px; }
+    .timeline-item h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .timeline-item p { font-size: 0.9rem; color: #555; }
+
+    /* ========== Calculator ========== */
+    .calc-card {
+      background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
+      border-radius: 16px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      max-width: 520px; margin: 0 auto;
+    }
+    .calc-card label { display: block; font-weight: 600; margin-bottom: 8px; color: #333; }
+    .calc-card input {
+      width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0;
+      border-radius: 10px; font-size: 1rem; transition: border-color 0.3s;
+      margin-bottom: 20px;
+    }
+    .calc-card input:focus { outline: none; border-color: #b33939; }
+    .calc-results {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;
+    }
+    .calc-result {
+      background: #fff; border-radius: 12px; padding: 16px; text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .calc-result .amount { font-size: 1.4rem; font-weight: 800; color: #b33939; }
+    .calc-result .period { font-size: 0.8rem; color: #888; margin-top: 4px; }
+
+    /* ========== Service cards ========== */
+    .service-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px; margin-top: 8px;
+    }
+    .service-card {
+      background: #fff; border-radius: 14px; padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none; color: inherit; display: block;
+      border: 2px solid transparent;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-color: #b33939; }
+    .service-card .icon { font-size: 2rem; margin-bottom: 12px; }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .service-card p { font-size: 0.85rem; color: #666; }
+    .service-card .phone { font-size: 1.1rem; font-weight: 700; color: #b33939; margin-top: 10px; }
+
+    /* ========== Hospital section ========== */
+    .hospital-card {
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      border-radius: 16px; padding: 36px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      border: 2px solid #a5d6a7;
+    }
+    .hospital-card .h-name {
+      font-size: 1.2rem; font-weight: 800; color: #b33939; margin-bottom: 4px;
+    }
+    .hospital-card .h-sub {
+      font-size: 0.9rem; color: #388e3c; margin-bottom: 16px;
+    }
+    .hospital-card .h-highlights {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px; margin-bottom: 20px;
+    }
+    .hospital-card .h-item {
+      background: #fff; border-radius: 10px; padding: 14px 16px;
+      text-align: center;
+    }
+    .hospital-card .h-item .val {
+      font-size: 1.3rem; font-weight: 800; color: #b33939;
+    }
+    .hospital-card .h-item .lab {
+      font-size: 0.8rem; color: #666; margin-top: 2px;
+    }
+    .hospital-card .h-desc {
+      font-size: 0.9rem; color: #444; line-height: 1.8; margin-bottom: 16px;
+    }
+    .hospital-card .h-phone {
+      display: inline-block; background: #0b5e42; color: #fff;
+      padding: 12px 24px; border-radius: 10px;
+      font-size: 1.2rem; font-weight: 700; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .hospital-card .h-phone:hover { background: #1a8a5c; }
+    .hospital-card .h-phone small { font-weight: 400; font-size: 0.8rem; opacity: 0.8; }
+
+    /* ========== Methods ========== */
+    .method-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .method-card {
+      background: #fff; border-radius: 14px; padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;
+    }
+    .method-card .emoji { font-size: 2.2rem; margin-bottom: 12px; }
+    .method-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .method-card p { font-size: 0.85rem; color: #666; }
+
+    /* ========== Footer ========== */
+    footer {
+      background: #0b5e42; color: rgba(255,255,255,0.7); padding: 40px 0;
+      text-align: center; font-size: 0.85rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 600px) {
+      .hero { padding: 60px 0 48px; }
+      .section { padding: 48px 0; }
+      .timeline { padding-left: 32px; }
+      .calc-results { grid-template-columns: 1fr; }
+      .hero-stats { gap: 20px; }
+      .hero-stat .num { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="decoration">🌴</div>
+  <div class="decoration">🌴</div>
+  <div class="decoration">🌴</div>
+  <div class="decoration">🌴</div>
+  <div class="decoration">🌴</div>
+  <div class="decoration">🌴</div>
+  <div class="decoration">🌴</div>
+  <div class="decoration">🌴</div>
+  <div class="container text-center">
+    <h1 class="fade-in">
+      戒檳榔吧
+      <span>遠離口腔癌，從今天開始 🌴</span>
+    </h1>
+    <p class="subtitle fade-in" style="animation-delay:0.2s">
+      每放下一顆檳榔，口腔健康就多一分保障。<br>
+      台灣每年超過 3,000 人因口腔癌失去生命，但戒檳榔後的每一天，癌變風險都在下降。
+    </p>
+    <div class="hero-stats fade-in" style="animation-delay:0.4s">
+      <div class="hero-stat">
+        <div class="num">80 <small>%</small></div>
+        <div class="label">口腔癌由檳榔引起</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">9 <small>成</small></div>
+        <div class="label">口腔癌患者有嚼檳榔習慣</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">35 <small>%</small></div>
+        <div class="label">戒檳榔降低口腔癌前病變</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BENEFITS TIMELINE ========== -->
+<section class="section" id="benefits" style="background:#fff;">
+  <div class="container">
+    <h2 class="section-title text-center">戒檳榔後的口腔變化</h2>
+    <p class="section-desc text-center">從停止嚼檳榔的那一刻開始，你的口腔就會啟動修復機制。</p>
+    <div class="timeline">
+      <div class="timeline-item fade-in">
+        <div class="dot"></div>
+        <div class="time">20 分鐘後</div>
+        <h3>口腔刺激感開始消退</h3>
+        <p>檳榔鹼對口腔黏膜的刺激逐漸減弱，口腔灼熱感與刺痛感開始緩解。</p>
+      </div>
+      <div class="timeline-item fade-in" style="animation-delay:0.1s">
+        <div class="dot"></div>
+        <div class="time">24 小時後</div>
+        <h3>口腔黏膜開始修復</h3>
+        <p>口腔黏膜纖維化停止惡化，口腔潰瘍與紅腫逐漸消退。</p>
+      </div>
+      <div class="timeline-item fade-in" style="animation-delay:0.2s">
+        <div class="dot"></div>
+        <div class="time">48 小時後</div>
+        <h3>味覺開始恢復</h3>
+        <p>味蕾逐漸恢復敏感度，食物嚐起來更有味道，唾液分泌趨於正常。</p>
+      </div>
+      <div class="timeline-item fade-in" style="animation-delay:0.3s">
+        <div class="dot"></div>
+        <div class="time">1 週後</div>
+        <h3>牙齦健康改善</h3>
+        <p>牙齦不再容易出血，口腔衛生狀況明顯改善，口氣清新許多。</p>
+      </div>
+      <div class="timeline-item fade-in" style="animation-delay:0.4s">
+        <div class="dot"></div>
+        <div class="time">1 ∼ 3 個月</div>
+        <h3>口腔黏膜病變減輕</h3>
+        <p>口腔黏膜白斑、紅斑等癌前病變有機會逐漸縮小或消失，張口困難的症狀改善。</p>
+      </div>
+      <div class="timeline-item fade-in" style="animation-delay:0.5s">
+        <div class="dot"></div>
+        <div class="time">6 ∼ 12 個月</div>
+        <h3>口腔癌風險開始下降</h3>
+        <p>持續戒檳榔超過一年，口腔癌的發生風險明顯降低。戒得越久，風險越低。</p>
+      </div>
+      <div class="timeline-item fade-in" style="animation-delay:0.6s">
+        <div class="dot"></div>
+        <div class="time">5 年後</div>
+        <h3>口腔癌風險大幅降低</h3>
+        <p>長期戒除檳榔後，口腔癌的發生率可降至與從未嚼食者相近，癌變風險持續下降。</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- ========== COST CALCULATOR ========== -->
+<section class="section" id="calculator" style="background:#fff5f5;">
+  <div class="container">
+    <h2 class="section-title text-center">戒檳榔省多少？</h2>
+    <p class="section-desc text-center">算算看你今天開始戒檳榔，能省下多少錢、找回多少健康。</p>
+    <div class="calc-card fade-in">
+      <label for="cigarettes">每天嚼幾顆檳榔？</label>
+      <input type="range" id="betels" min="1" max="60" value="10" oninput="updateCalc()">
+      <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#888;margin-top:-12px;margin-bottom:20px;">
+        <span id="betelsDisplay">10 顆/天</span>
+      </div>
+
+      <label for="bPrice">每顆檳榔價格（元）</label>
+      <input type="range" id="bPrice" min="90" max="200" value="140" step="5" oninput="updateCalc()">
+      <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#888;margin-top:-12px;margin-bottom:20px;">
+        <span id="bPriceDisplay">50 元/顆</span>
+      </div>
+
+      <div class="calc-results">
+        <div class="calc-result">
+          <div class="amount" id="dailyCost">70</div>
+          <div class="period">每天省下（元）</div>
+        </div>
+        <div class="calc-result">
+          <div class="amount" id="monthlyCost">2,100</div>
+          <div class="period">每月省下（元）</div>
+        </div>
+        <div class="calc-result">
+          <div class="amount" id="yearlyCost">25,550</div>
+          <div class="period">每年省下（元）</div>
+        </div>
+        <div class="calc-result">
+          <div class="amount" id="tenYearCost">255,500</div>
+          <div class="period">十年省下（元）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section class="section" id="services" style="background:#fff;">
+  <div class="container">
+    <h2 class="section-title text-center">口腔癌防治資源</h2>
+    <p class="section-desc text-center">專業的口腔癌防治資源就在你身邊，定期篩檢是關鍵。</p>
+    <div class="service-grid">
+      <a class="service-card" href="https://ttc.hpa.gov.tw/" target="_blank" rel="noopener">
+        <div class="icon">🏥</div>
+        <h3>國民健康署<br>口腔癌篩檢</h3>
+        <p>全台提供免費口腔黏膜檢查，30歲以上嚼檳榔或吸菸者，每2年1次篩檢。</p>
+      </a>
+
+      <a class="service-card" href="https://www.tsh.org.tw/" target="_blank" rel="noopener">
+        <div class="icon">📞</div>
+        <h3>戒檳榔專線諮詢</h3>
+        <p>提供免費、一對一的戒檳榔諮詢，由專業人員協助擬定戒檳榔計畫與口腔健康衛教。</p>
+        <div class="phone">0800-636363</div>
+      </a>
+
+      <a class="service-card" href="https://ttc.hpa.gov.tw/Web/SearchForClinic" target="_blank" rel="noopener">
+        <div class="icon">📍</div>
+        <h3>口腔黏膜篩檢院所查詢</h3>
+        <p>查詢離你最近的口腔癌篩檢醫療院所，定期接受口腔黏膜檢查，及早發現病變。</p>
+      </a>
+
+      <a class="service-card" href="https://health99.hpa.gov.tw/" target="_blank" rel="noopener">
+        <div class="icon">📱</div>
+        <h3>健康九九檳榔防制</h3>
+        <p>衛福部國民健康署官方平台，提供檳榔危害資訊、口腔癌衛教與戒檳榔資源。</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MCH HOSPITAL ========== -->
+<section class="section" id="mch" style="background:#f1f8e9;">
+  <div class="container">
+    <h2 class="section-title text-center" style="color:#1b5e20;">門諾醫院口腔癌防治</h2>
+    <p class="section-desc text-center">花蓮鄉親的口腔健康守護者 — 免費篩檢、專業診斷、早期治療。</p>
+    <div class="hospital-card fade-in">
+      <div class="h-name">🏥 門諾醫院口腔癌篩檢</div>
+      <div class="h-sub">口腔外科、耳鼻喉科、家醫科均可提供口腔黏膜檢查</div>
+      <div class="h-highlights">
+        <div class="h-item">
+          <div class="val">0 元</div>
+          <div class="lab">免費口腔黏膜檢查</div>
+        </div>
+        <div class="h-item">
+          <div class="val">2 年</div>
+          <div class="lab">每2年一次篩檢</div>
+        </div>
+        <div class="h-item">
+          <div class="val">30 <small>歲↑</small></div>
+          <div class="lab">篩檢適用年齡</div>
+        </div>
+        <div class="h-item">
+          <div class="val">2 年</div>
+          <div class="lab">篩檢間隔</div>
+        </div>
+      </div>
+      <div class="h-desc">
+        <strong>免費篩檢：</strong>國民健康署補助 <strong>30 歲以上</strong>有嚼檳榔（含已戒）或吸菸者，每 <strong>2 年 1 次</strong>免費口腔黏膜檢查。<br>
+        <strong>檢查項目：</strong>由醫師進行口腔黏膜視診與觸診，檢查唇頰黏膜、牙齦、舌頭、口底、軟硬腭等部位是否出現白斑、紅斑、潰瘍或異常增生。<br>
+        <strong>早期發現：</strong>口腔癌早期發現治癒率高達 <strong>80% 以上</strong>，且治療較不具侵襲性，可保留口腔功能與顏面外觀。<br>
+        <strong>轉介治療：</strong>篩檢發現異常者，立即轉介至口腔外科或耳鼻喉科進行切片確診，安排後續治療。
+      </div>
+      <div class="text-center">
+        <a class="h-phone" href="tel:038241431">
+          📞 03-824-1431 <small>口腔癌篩檢預約</small>
+        </a>
+      </div>
+      <p style="margin-top:16px; font-size:0.8rem; color:#888; text-align:center;">
+        企業或團體可洽談口腔癌篩檢合作與檳榔防制宣導，歡迎來電。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== METHODS ========== -->
+<section class="section" id="methods" style="background:#f8f9fa;">
+  <div class="container">
+    <h2 class="section-title text-center">戒檳榔方法建議</h2>
+    <p class="section-desc text-center">找到最適合你的方法，戒檳榔之路不再孤單。</p>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="emoji">💊</div>
+        <h3>替代習慣</h3>
+        <p>以嚼無糖口香糖、含薄荷糖、吃堅果或蔬果棒替代嚼檳榔的習慣。隨身攜帶水瓶，想嚼檳榔時先喝一口水。</p>
+      </div>
+      <div class="method-card">
+        <div class="emoji">🗣️</div>
+        <h3>自我覺察</h3>
+        <p>記錄嚼檳榔的時機與觸發情境（工作、聚會、提神），逐步減少嚼食量。設定戒檳榔目標日期，逐步達成。</p>
+      </div>
+      <div class="method-card">
+        <div class="emoji">💪</div>
+        <h3>口腔保健</h3>
+        <p>定期接受口腔黏膜檢查，保持良好口腔衛生。戒檳榔後定期洗牙、檢查牙齒，讓口腔健康成為持續動力。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== QUOTE ========== -->
+<section class="section" style="background:#0b5e42; color:#fff;">
+  <div class="container text-center">
+    <blockquote style="font-size:clamp(1.1rem,2.5vw,1.4rem); font-style:italic; line-height:1.8; max-width:600px; margin:0 auto;">
+      「戒檳榔不是失去什麼，而是保護口腔、遠離癌症的開始。」
+    </blockquote>
+    <p style="margin-top:24px; opacity:0.7; font-size:0.9rem;">— 衛生福利部 國民健康署</p>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <p>本網站內容僅供衛教參考，檳榔防制與口腔癌相關問題請諮詢醫療專業人員。</p>
+    <p style="margin-top:8px;">戒檳榔諮詢：<strong>0800-636363</strong> · 口腔癌篩檢洽各醫療院所</p>
+    <p style="margin-top:16px; opacity:0.5;">© 2026 戒檳榔吧 — 遠離口腔癌的威脅</p>
+  </div>
+</footer>
+
+<!-- ========== SCRIPT ========== -->
+<script>
+function updateCalc() {
+  const cigs = parseInt(document.getElementById('cigarettes').value);
+  const price = parseInt(document.getElementById('price').value);
+
+  document.getElementById('cigarettesDisplay').textContent = cigs + ' 根/天';
+  document.getElementById('priceDisplay').textContent = price + ' 元/包';
+
+  const perCig = price / 20;
+  const daily = cigs * perCig;
+  const monthly = daily * 30;
+  const yearly = daily * 365;
+  const tenYear = yearly * 10;
+
+  document.getElementById('dailyCost').textContent = Math.round(daily).toLocaleString();
+  document.getElementById('monthlyCost').textContent = Math.round(monthly).toLocaleString();
+  document.getElementById('yearlyCost').textContent = Math.round(yearly).toLocaleString();
+  document.getElementById('tenYearCost').textContent = Math.round(tenYear).toLocaleString();
+}
+
+// Intersection Observer for scroll animations
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.timeline-item, .service-card, .method-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  initBg();
+});
+
+function initBg() {
+  // Add subtle background pattern to select sections
+  const calcSection = document.querySelector('#calculator');
+  if (calcSection) {
+    calcSection.style.backgroundImage = 'radial-gradient(circle at 10% 20%, rgba(11,94,66,0.03) 0%, transparent 50%)';
+  }
+}
+</script>
+</body>
+</html>

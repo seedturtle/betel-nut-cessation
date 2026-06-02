@@ -1,0 +1,11 @@
+{
+  "name": "betel-nut-cessation",
+  "version": "1.0.0",
+  "description": "戒檳榔與口腔癌防治 — 互動衛教網頁",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Seedturtle Hung",
+  "license": "MIT"
+}
