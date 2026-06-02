@@ -12,9 +12,9 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
       color: #1a1a2e; line-height: 1.7; background: #f8f9fa;
       background-image:
-        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(11,94,66,0.03) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 90% 40%, rgba(78,205,196,0.04) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 50% at 50% 80%, rgba(11,94,66,0.02) 0%, transparent 60%);
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(179,57,57,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 90% 40%, rgba(230,103,103,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 50% 80%, rgba(179,57,57,0.03) 0%, transparent 60%);
       background-attachment: fixed;
     }
 
@@ -24,12 +24,12 @@
       position: relative;
     }
     .section:nth-child(even)::before {
-      content: '🍃'; position: absolute; font-size: 4rem; opacity: 0.06;
+      content: '🌴'; position: absolute; font-size: 4rem; opacity: 0.06;
       top: 20px; right: 30px; transform: rotate(15deg);
       pointer-events: none;
     }
     .section:nth-child(odd)::after {
-      content: '🌿'; position: absolute; font-size: 3.5rem; opacity: 0.05;
+      content: '🌴'; position: absolute; font-size: 3.5rem; opacity: 0.05;
       bottom: 20px; left: 20px; transform: rotate(-10deg);
       pointer-events: none;
     }
@@ -109,7 +109,7 @@
     .timeline-item:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
     .timeline-item .dot {
       position: absolute; left: -33px; top: 24px; width: 20px; height: 20px;
-      border-radius: 50%; background: #0b5e42; border: 3px solid #fff;
+      border-radius: 50%; background: #cd6133; border: 3px solid #fff;
       box-shadow: 0 0 0 3px #b33939;
     }
     .timeline-item .time { font-size: 0.85rem; font-weight: 700; color: #b33939; margin-bottom: 4px; }
@@ -118,7 +118,7 @@
 
     /* ========== Calculator ========== */
     .calc-card {
-      background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
+      background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
       border-radius: 16px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
       max-width: 520px; margin: 0 auto;
     }
@@ -182,18 +182,25 @@
       border-top: 1px solid #ffe0b2;
     }
 
+
+    /* ========== Guide card (info panels) ========== */
+    .guide-card {
+      border-radius: 16px; padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
     /* ========== Hospital section ========== */
     .hospital-card {
-      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      background: linear-gradient(135deg, #fbe9e7 0%, #fff3e0 100%);
       border-radius: 16px; padding: 36px 32px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-      border: 2px solid #a5d6a7;
+      border: 2px solid #ffab91;
     }
     .hospital-card .h-name {
       font-size: 1.2rem; font-weight: 800; color: #b33939; margin-bottom: 4px;
     }
     .hospital-card .h-sub {
-      font-size: 0.9rem; color: #388e3c; margin-bottom: 16px;
+      font-size: 0.9rem; color: #bf360c; margin-bottom: 16px;
     }
     .hospital-card .h-highlights {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -213,12 +220,12 @@
       font-size: 0.9rem; color: #444; line-height: 1.8; margin-bottom: 16px;
     }
     .hospital-card .h-phone {
-      display: inline-block; background: #0b5e42; color: #fff;
+      display: inline-block; background: #b33939; color: #fff;
       padding: 12px 24px; border-radius: 10px;
       font-size: 1.2rem; font-weight: 700; text-decoration: none;
       transition: background 0.3s;
     }
-    .hospital-card .h-phone:hover { background: #1a8a5c; }
+    .hospital-card .h-phone:hover { background: #cd6133; }
     .hospital-card .h-phone small { font-weight: 400; font-size: 0.8rem; opacity: 0.8; }
 
     /* ========== Methods ========== */
@@ -236,7 +243,7 @@
 
     /* ========== Footer ========== */
     footer {
-      background: #0b5e42; color: rgba(255,255,255,0.7); padding: 40px 0;
+      background: #b33939; color: rgba(255,255,255,0.7); padding: 40px 0;
       text-align: center; font-size: 0.85rem;
     }
     footer strong { color: #fff; }
@@ -479,7 +486,7 @@
 <!-- ========== MCH HOSPITAL ========== -->
 <section class="section" id="mch" style="background:#f1f8e9;">
   <div class="container">
-    <h2 class="section-title text-center" style="color:#1b5e20;">門諾醫院口腔癌防治</h2>
+    <h2 class="section-title text-center" style="color:#b33939;">門諾醫院口腔癌防治</h2>
     <p class="section-desc text-center">花蓮鄉親的口腔健康守護者 — 免費篩檢、專業診斷、早期治療。</p>
     <div class="hospital-card fade-in">
       <div class="h-name">🏥 門諾醫院口腔癌篩檢</div>
